@@ -1,0 +1,38 @@
+text = input()
+long_text = len(text)
+eng_lower_alphabet = 'abcdefghijklmnopqrstuvwxyz'
+eng_upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+cipher_message = ''
+counter = 0
+
+
+while long_text > 0:
+    if text[0] not in eng_lower_alphabet and text[0] not in eng_upper_alphabet:
+        cipher_message += text[0]
+        text = text[1:]
+        long_text -= 1
+        continue
+    else:
+        for c in text:
+            if c.isalpha():
+                counter += 1
+                step = counter
+            else:
+                break
+    
+        for i in range (counter):   # Шифрует по длине слова 
+            if text[i].islower():
+                if eng_lower_alphabet.find(text[i]) + step <= 25:
+                    cipher_message += eng_lower_alphabet[eng_lower_alphabet.find(text[i]) + step]
+                elif eng_lower_alphabet.find(text[i]) + step > 25:
+                    cipher_message += eng_lower_alphabet[eng_lower_alphabet.find(text[i]) + step - 26]
+            elif text[i].isupper():
+                if eng_upper_alphabet.find(text[i]) + step <= 25:
+                    cipher_message += eng_upper_alphabet[eng_upper_alphabet.find(text[i]) + step]
+                elif eng_upper_alphabet.find(text[i]) + step > 25:
+                    cipher_message += eng_upper_alphabet[eng_upper_alphabet.find(text[i]) + step - 26]
+        text = text[counter:]
+        long_text -= counter
+        counter = 0
+print(cipher_message)
+                 
