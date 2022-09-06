@@ -1,0 +1,77 @@
+was_machen = input('Что бы вы хотели расшифровать или зашифровать? Введите "z" если зашифровать и "r" чтобы расшифровать')
+while was_machen.lower() != 'z' and was_machen.lower() != 'r':
+    was_machen = input('Что бы вы хотели расшифровать или зашифровать? Введите "z" если зашифровать и "r" чтобы расшифровать')
+
+welche_sprache = input('Какой язык вы хотите использовать. Введите "a" для английского и "r" для русского')
+while welche_sprache.lower() != 'a' and welche_sprache.lower() != 'r':
+    welche_sprache = input('Какой язык вы хотите использовать. Введите "a" для английского и "r" для русского')
+    
+step = input("Введите шаг сдвига")
+while step.isdigit() != True:
+    step = input("Введите шаг сдвига")
+step = int(step)
+
+text = input('Введите текст')
+while text.isspace():
+    text = input('Вы ввели что-то не то. Введите текст')
+
+eng_lower_alphabet = 'abcdefghijklmnopqrstuvwxyz'
+eng_upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+rus_lower_alphabet = "абвгдежзийклмнопрстуфхцчшщъыьэюя"
+rus_upper_alphabet = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+
+cipher_message = ''
+
+if was_machen == 'z' and welche_sprache == 'a': # Шифрует английский текст
+    for i in range(len(text)):
+        if text[i].islower():
+            if eng_lower_alphabet.find(text[i]) + step <= 25:
+                cipher_message += eng_lower_alphabet[eng_lower_alphabet.find(text[i]) + step]
+            elif eng_lower_alphabet.find(text[i]) + step > 25:
+                cipher_message += eng_lower_alphabet[eng_lower_alphabet.find(text[i]) + step - 26]
+        elif text[i].isupper():
+            if eng_upper_alphabet.find(text[i]) + step <= 25:
+                cipher_message += eng_upper_alphabet[eng_upper_alphabet.find(text[i]) + step]
+            elif eng_upper_alphabet.find(text[i]) + step > 25:
+                cipher_message += eng_upper_alphabet[eng_upper_alphabet.find(text[i]) + step - 26]
+        else:
+            cipher_message += text[i]
+                
+                
+                
+elif was_machen == 'z' and welche_sprache == 'r': # Шифрует русский текст 
+    for i in range(len(text)):
+            if text[i].islower():
+                if rus_lower_alphabet.find(text[i]) + step <= 31:
+                    cipher_message += rus_lower_alphabet[rus_lower_alphabet.find(text[i]) + step]
+                elif rus_lower_alphabet.find(text[i]) + step > 31:
+                    cipher_message += rus_lower_alphabet[rus_lower_alphabet.find(text[i]) + step - 32]
+            elif text[i].isupper():
+                if rus_upper_alphabet.find(text[i]) + step <= 31:
+                    cipher_message += rus_upper_alphabet[rus_upper_alphabet.find(text[i]) + step]
+                elif rus_upper_alphabet.find(text[i]) + step > 31:
+                    cipher_message += rus_upper_alphabet[rus_upper_alphabet.find(text[i]) + step - 32]
+            else:
+                cipher_message += text[i]
+    
+
+
+elif was_machen == 'r' and welche_sprache == 'a':           # Расшифровывает английский текст
+    for i in range(len(text)):    
+        if text[i].islower():
+                cipher_message += eng_lower_alphabet[eng_lower_alphabet.find(text[i]) - step]
+        elif text[i].isupper():
+                cipher_message += eng_upper_alphabet[eng_upper_alphabet.find(text[i]) - step]
+        else:
+            cipher_message += text[i]
+
+elif was_machen == 'r' and welche_sprache == 'r':           # Расшифровывает русский текст
+    for i in range(len(text)):    
+        if text[i].islower():
+                cipher_message += rus_lower_alphabet[rus_lower_alphabet.find(text[i]) - step]
+        elif text[i].isupper():
+                cipher_message += rus_upper_alphabet[rus_upper_alphabet.find(text[i]) - step]
+        else:
+            cipher_message += text[i]
+
+print(cipher_message)
